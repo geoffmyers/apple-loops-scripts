@@ -1,0 +1,14 @@
+# Apple Loops Converter Dependencies
+# Install: pip install -r requirements.txt
+
+# Audio analysis library for transient/onset detection
+librosa>=0.10.0
+
+# Audio file I/O (required by librosa)
+soundfile>=0.12.0
+
+# Numerical computing (required by librosa)
+numpy>=1.20.0
+
+# MIDI file parsing (optional, enhances MIDI support)
+mido>=1.2.0
