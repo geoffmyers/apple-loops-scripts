@@ -1,3 +1,11 @@
+---
+title: Apple Loops Metadata Format Analysis
+created: 2026-01-28
+modified: 2026-01-28
+description: "This document provides a comprehensive reverse-engineered specification of the Apple Loops metadata format used by Logic Pro, GarageBand, and other Apple audio applications."
+tags: [music]
+---
+
 # Apple Loops Metadata Format Analysis
 
 This document provides a comprehensive reverse-engineered specification of the Apple Loops metadata format used by Logic Pro, GarageBand, and other Apple audio applications.

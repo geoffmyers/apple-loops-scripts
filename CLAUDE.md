@@ -1,3 +1,11 @@
+---
+title: CLAUDE.md - Apple Loops Scripts Development Guide
+created: 2026-01-28
+modified: 2026-02-01
+description: "Purpose: Convert audio and MIDI files to Apple Loop CAF format with metadata and beat markers for use in Logic Pro, GarageBand, and Final Cut Pro."
+tags: [music, claude]
+---
+
 # CLAUDE.md - Apple Loops Scripts Development Guide
 
 ## Project Overview
