@@ -229,8 +229,38 @@ apple-loops-scripts/
 ├── APPLE_LOOPS_FORMAT.md       # Format specification
 ├── CLAUDE.md                   # Development guide
 ├── README.md                   # This file
-└── requirements.txt            # Python dependencies
+├── requirements.txt            # Python dependencies
+└── macos-app/                  # macOS SwiftUI GUI application
+    ├── AppleLoopsConverter.xcodeproj
+    ├── AppleLoopsConverter/
+    │   ├── Models/             # Data models (AudioFile, ConversionSettings, LoopMetadata)
+    │   ├── ViewModels/         # State management and Python bridge
+    │   ├── Views/              # SwiftUI views
+    │   └── Services/           # Service layer (PythonBridge)
+    └── Scripts/                # Build and packaging scripts
 ```
+
+## macOS GUI Application
+
+The `macos-app/` directory contains a native macOS SwiftUI application that provides a graphical interface for the conversion scripts.
+
+### Requirements
+
+- macOS 12.0+
+- Xcode 14+
+- Python 3.9+ (for the conversion backend)
+
+### Usage
+
+```bash
+# Open in Xcode
+open macos-app/AppleLoopsConverter.xcodeproj
+
+# Build from command line
+xcodebuild -project macos-app/AppleLoopsConverter.xcodeproj -scheme AppleLoopsConverter build
+```
+
+The app calls `convert_to_apple_loops.py` via `Process()`. Configure the Python script path in the app's Settings panel, or the app will attempt to auto-detect it.
 
 ## License
 

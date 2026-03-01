@@ -301,6 +301,28 @@ PROGRAM_MAP = {
 4. **Beat Detection**: Quality depends on audio content
 5. **MIDI Rendering**: No audio preview generation (requires external synthesizer)
 
+## macOS GUI Application (macos-app/)
+
+A native macOS SwiftUI app that wraps the Python conversion script.
+
+### Architecture
+
+- **MVVM pattern**: Views → ViewModels → Models
+- **PythonBridge** (`Services/PythonBridge.swift`): Spawns `convert_to_apple_loops.py` via `Process()`, handles progress reporting and output parsing
+- **Script path resolution**: Checks bundled resources → user settings → DerivedData fallbacks → relative paths → system paths
+- **Settings persistence**: `@AppStorage` (UserDefaults)
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `AppleLoopsConverterApp.swift` | App entry point and window management |
+| `Services/PythonBridge.swift` | Python script integration (459 lines) |
+| `ViewModels/ConverterViewModel.swift` | Main view model |
+| `Models/LoopMetadata.swift` | Swift metadata model |
+| `Scripts/build_distributable.sh` | Build distributable app package |
+| `Scripts/bundle_python.sh` | Bundle Python runtime for standalone distribution |
+
 ## Differences: Audio vs MIDI Conversion
 
 | Feature | Audio | MIDI |
@@ -318,7 +340,7 @@ PROGRAM_MAP = {
 
 - [ ] Linux/Windows audio support via FFmpeg
 - [ ] Audio preview generation for MIDI loops
-- [ ] GUI application (SwiftUI wrapper exists in macos-apps/)
+- [x] GUI application (SwiftUI wrapper in `macos-app/`)
 - [ ] Integration with DAW APIs
 - [ ] Batch metadata editing
 - [ ] MIDI quantization options
