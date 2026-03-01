@@ -44,7 +44,8 @@ Python utilities for converting audio and MIDI files to Apple Loop CAF format an
 ### Setup
 
 ```bash
-cd python-scripts/apple-loops-scripts
+git clone https://github.com/geoffmyers/apple-loops-scripts.git
+cd apple-loops-scripts
 pip install -r requirements.txt
 ```
 
@@ -233,4 +234,4 @@ apple-loops-scripts/
 
 ## License
 
-Part of the geoff-myers-mono-repo. See repository LICENSE for details.
+This project is licensed under the GNU General Public License v2.0 - see the [LICENSE.md](LICENSE.md) file for details.

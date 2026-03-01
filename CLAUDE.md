@@ -314,7 +314,7 @@ PROGRAM_MAP = {
 
 ## Future Enhancement Ideas
 
-> **GitHub Issue:** [#218 — Apple Loops Scripts: future enhancements](https://github.com/geoffmyers/geoff-myers-mono-repo/issues/218)
+> **GitHub Issue:** [#218 — Apple Loops Scripts: future enhancements](https://github.com/geoffmyers/apple-loops-scripts/issues)
 
 - [ ] Linux/Windows audio support via FFmpeg
 - [ ] Audio preview generation for MIDI loops
