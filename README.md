@@ -1,11 +1,3 @@
----
-title: Apple Loops Scripts
-created: 2026-01-28
-modified: 2026-01-28
-description: "Python utilities for converting audio and MIDI files to Apple Loop CAF format and decoding Apple Loop metadata. These scripts create loops compatible with Logic Pro, GarageBand, and Final Cut Pro."
-tags: [music, readme]
----
-
 # Apple Loops Scripts
 
 Python utilities for converting audio and MIDI files to Apple Loop CAF format and decoding Apple Loop metadata. These scripts create loops compatible with Logic Pro, GarageBand, and Final Cut Pro.
