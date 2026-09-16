@@ -1,0 +1,5 @@
+# Development dependencies for the test suite (tests/).
+# Not needed to run the converters.
+# Install: pip install -r requirements-dev.txt
+
+pytest>=7.0.0
