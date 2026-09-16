@@ -18,11 +18,29 @@ pip install -r requirements-dev.txt
 
 ## Checks
 
-Run these before pushing:
+<!-- CHECKS:START -->
+Every push and pull request runs these checks in GitHub Actions
+([`.github/workflows/checks.yml`](.github/workflows/checks.yml)), and every release has passed them.
+To run one yourself, use the same commands from the directory shown.
+
+**tests** (Python 3.12, from the repository root):
 
 ```bash
-pytest
+python -m venv /tmp/venv
+. /tmp/venv/bin/activate
+pip install --quiet --upgrade pip
+pip install --quiet -r requirements.txt -r requirements-dev.txt
+python -m pytest -q
 ```
+
+**macOS app build** (macOS with Xcode, from the repository root):
+
+```bash
+xcodebuild -project macos-app/AppleLoopsConverter.xcodeproj -target AppleLoopsConverter \
+  -configuration Debug CODE_SIGNING_ALLOWED=NO build
+```
+
+<!-- CHECKS:END -->
 
 ## Before you open a pull request
 
