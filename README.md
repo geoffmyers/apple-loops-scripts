@@ -8,18 +8,6 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 <!-- BADGES:END -->
 
-## Description
-
-Python tools for making **Apple Loops**, the tagged CAF files that Logic Pro,
-GarageBand and Final Cut Pro show in their Loop Browsers and stretch to the
-project's tempo and key. Convert a WAV, a MIDI file or a whole folder; import an
-entire Splice library with its real tempo, key and genre; keep Logic in step
-with Splice with one double-click; and read any loop's metadata back out to
-check that Logic will treat it as a native loop.
-
-Every claim this toolkit makes about the format is tested against the 34,928
-loops Apple itself ships with Logic, not against documentation.
-
 ## Table of Contents
 
 - [Description](#description)
@@ -43,6 +31,18 @@ loops Apple itself ships with Logic, not against documentation.
 - [Credits](#credits)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Description
+
+Python tools for making **Apple Loops**, the tagged CAF files that Logic Pro,
+GarageBand and Final Cut Pro show in their Loop Browsers and stretch to the
+project's tempo and key. Convert a WAV, a MIDI file or a whole folder; import an
+entire Splice library with its real tempo, key and genre; keep Logic in step
+with Splice with one double-click; and read any loop's metadata back out to
+check that Logic will treat it as a native loop.
+
+Every claim this toolkit makes about the format is tested against the 34,928
+loops Apple itself ships with Logic, not against documentation.
 
 ## Screenshots
 
