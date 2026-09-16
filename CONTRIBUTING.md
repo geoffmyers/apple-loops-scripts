@@ -42,6 +42,23 @@ xcodebuild -project macos-app/AppleLoopsConverter.xcodeproj -target AppleLoopsCo
 
 <!-- CHECKS:END -->
 
+<!-- RELEASES:START -->
+### Releases
+
+Every push to `main` runs the release workflow
+([`.github/workflows/release.yml`](.github/workflows/release.yml)). It reads the version with
+
+```bash
+grep -m1 -o 'MARKETING_VERSION = [^;]*' macos-app/AppleLoopsConverter.xcodeproj/project.pbxproj | cut -d' ' -f3
+```
+
+and, if `v<version>` has no release yet, builds these and publishes them as
+a GitHub Release. To release, raise the version.
+
+- **macOS app** (macOS with Xcode): `*.zip`
+
+<!-- RELEASES:END -->
+
 ## Before you open a pull request
 
 - Keep the change focused. One concern per PR is much easier to review.

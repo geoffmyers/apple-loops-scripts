@@ -110,6 +110,10 @@ needs Xcode on a Mac.
 
 ## Installation
 
+The macOS app is also built for every version: download it from the [latest
+release](https://github.com/geoffmyers/apple-loops-scripts/releases/latest).
+The command-line tools need the clone.
+
 ```bash
 git clone https://github.com/geoffmyers/apple-loops-scripts.git
 cd apple-loops-scripts
