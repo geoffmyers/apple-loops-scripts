@@ -324,7 +324,7 @@
 				INFOPLIST_FILE = AppleLoopsConverter/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Apple Loops Converter";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright 2025 Geoff Myers. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Geoff Myers. Licensed under the GNU GPL, version 3 or later.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -353,7 +353,7 @@
 				INFOPLIST_FILE = AppleLoopsConverter/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Apple Loops Converter";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright 2025 Geoff Myers. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Geoff Myers. Licensed under the GNU GPL, version 3 or later.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
