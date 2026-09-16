@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/icon.svg" width="96" height="96" alt="Apple Loops Scripts icon">
+</p>
+
 # Apple Loops Scripts
 
 <!-- BADGES:START -->
@@ -440,6 +444,8 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for more detail.
   affiliated with Splice.
 - Apple Loops, Logic Pro, GarageBand and Final Cut Pro are trademarks of Apple
   Inc. This project is not affiliated with or endorsed by Apple.
+- The README icon is the [Font Awesome](https://fontawesome.com/) `repeat` glyph,
+  used under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
 Written by Geoff Myers.
 
