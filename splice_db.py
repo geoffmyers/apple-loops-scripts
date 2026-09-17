@@ -47,8 +47,16 @@ DEFAULT_DB_GLOBS = (
 # the scale glued on ("Cm", "Bbm", "F#maj").
 _KEY_RE = re.compile(r'^([A-Ga-g])([b#]?)(m|min|minor|maj|major|M)?$')
 
-_MINOR_TOKENS = frozenset({'m', 'min', 'minor'})
-_MAJOR_TOKENS = frozenset({'maj', 'major', 'M'})
+# Every multi-character scale token is matched case-insensitively; a bare
+# single letter is the one exception ('M' = major, 'm' = minor, a common
+# chord-notation convention) and is handled separately in
+# `_normalise_scale()` since lower-casing 'M' would collide with 'm'.
+_SCALE_TOKENS = {
+    'maj': 'major',
+    'major': 'major',
+    'min': 'minor',
+    'minor': 'minor',
+}
 
 # Splice's own word for a rhythmic phrase. Anything else -- including a NULL,
 # which is common -- is treated as a one-shot, because assuming "loop" is the
@@ -88,13 +96,11 @@ def _normalise_scale(token: Optional[str]) -> str:
     if not token:
         return ''
     stripped = token.strip()
-    if stripped in _MAJOR_TOKENS:
+    if stripped == 'M':
         return 'major'
-    if stripped.lower() in _MINOR_TOKENS:
+    if stripped == 'm':
         return 'minor'
-    if stripped.lower() in {t.lower() for t in _MAJOR_TOKENS}:
-        return 'major'
-    return ''
+    return _SCALE_TOKENS.get(stripped.lower(), '')
 
 
 @dataclass

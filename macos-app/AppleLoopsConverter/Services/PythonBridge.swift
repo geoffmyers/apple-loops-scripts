@@ -121,8 +121,7 @@ class PythonBridge: ObservableObject {
 
         // 5. Walk up from the app bundle looking for the toolkit root. Covers a
         //    build product sitting anywhere inside the checkout without assuming
-        //    a fixed depth (the previous fixed two-level hop pointed at
-        //    python-scripts/apple-loops-scripts/, which moved to music/ in 2026-03).
+        //    a fixed depth (a fixed two-level hop broke when the project moved).
         var searchDirectory = Bundle.main.bundleURL.deletingLastPathComponent()
         for _ in 0..<6 {
             let candidate = searchDirectory.appendingPathComponent("convert_to_apple_loops.py")

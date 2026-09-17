@@ -9,7 +9,7 @@ import sqlite3
 
 import pytest
 
-from splice_db import SpliceLibrary, SpliceSample, parse_splice_key
+from splice_db import SpliceLibrary, SpliceSample, parse_splice_key, _normalise_scale
 
 # Columns as they appear in the real sounds.db `samples` table.
 SAMPLES_COLUMNS = [
@@ -57,6 +57,40 @@ class TestParseSpliceKey:
 
     def test_an_unparseable_key_is_discarded_rather_than_passed_through(self):
         assert parse_splice_key("H#$", "") == ("", "")
+
+
+class TestNormaliseScale:
+    """`_normalise_scale()` matches every multi-character token
+    case-insensitively, with one deliberate exception: a bare single
+    letter is matched case-*sensitively*, since 'M' (major) and 'm'
+    (minor) would otherwise collide when lower-cased."""
+
+    def test_bare_capital_m_is_major(self):
+        assert _normalise_scale("M") == "major"
+
+    def test_bare_lowercase_m_is_minor(self):
+        assert _normalise_scale("m") == "minor"
+
+    @pytest.mark.parametrize("token", ["maj", "Maj", "MAJ", "major", "Major", "MAJOR", "MaJoR"])
+    def test_major_tokens_are_case_insensitive(self, token):
+        assert _normalise_scale(token) == "major"
+
+    @pytest.mark.parametrize("token", ["min", "Min", "MIN", "minor", "Minor", "MINOR", "mIn"])
+    def test_minor_tokens_are_case_insensitive(self, token):
+        assert _normalise_scale(token) == "minor"
+
+    def test_surrounding_whitespace_is_stripped(self):
+        assert _normalise_scale(" M ") == "major"
+        assert _normalise_scale(" m ") == "minor"
+
+    def test_unknown_token_is_empty(self):
+        assert _normalise_scale("x") == ""
+        assert _normalise_scale("mm") == ""
+        assert _normalise_scale("both") == ""
+
+    def test_empty_or_none_is_empty(self):
+        assert _normalise_scale("") == ""
+        assert _normalise_scale(None) == ""
 
 
 class TestSpliceLibrary:
