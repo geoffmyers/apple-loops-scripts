@@ -53,7 +53,8 @@ grep -m1 -o 'MARKETING_VERSION = [^;]*' macos-app/AppleLoopsConverter.xcodeproj/
 ```
 
 and, if `v<version>` has no release yet, builds these and publishes them as
-a GitHub Release. To release, raise the version.
+a [GitHub Release](https://github.com/geoffmyers/apple-loops-scripts/releases).
+To release, raise the version.
 
 - **macOS app** (macOS with Xcode): `*.zip`
 

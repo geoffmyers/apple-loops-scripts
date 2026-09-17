@@ -8,6 +8,7 @@
 ![librosa 0.10.0+](https://img.shields.io/badge/librosa-0.10.0+-4d02a2?style=flat-square)
 ![NumPy 1.20.0+](https://img.shields.io/badge/NumPy-1.20.0+-013243?style=flat-square&logo=numpy)
 ![mido 1.2.0+](https://img.shields.io/badge/mido-1.2.0+-306998?style=flat-square)
+[![Latest release](https://img.shields.io/github/v/release/geoffmyers/apple-loops-scripts?style=flat-square&logo=github&label=release)](https://github.com/geoffmyers/apple-loops-scripts/releases/latest)
 [![Licence GPL-3.0-or-later](https://img.shields.io/badge/licence-GPL--3.0--or--later-blue?style=flat-square)](LICENSE.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 <!-- BADGES:END -->
