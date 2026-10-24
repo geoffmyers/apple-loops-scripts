@@ -192,3 +192,39 @@ class TestGenresWithNoExactAppleEquivalent:
     def test_a_more_specific_tag_still_wins_over_pop(self):
         # Splice orders tags most-specific-first.
         assert splice_genre_to_apple("", ["deep house", "pop"]) == "Deep House"
+
+
+# --- role tags listed first must not override the instrument (2026-10-08) ---
+
+import pytest  # noqa: E402
+
+from convert_to_apple_loops import MetadataExtractor, splice_tags_to_instrument  # noqa: E402
+
+
+@pytest.mark.parametrize("tags, expected", [
+    (["leads", "hip hop", "rnb", "guitar", "electric guitar"], "Guitars"),
+    (["synth", "bass", "pop", "synthwave"], "Bass"),
+    (["synth", "drums", "snares", "house", "808", "drum machine"], "Drums"),
+    (["acoustic", "chords", "clean", "folk", "guitar", "nylon"], "Guitars"),
+    (["arp", "chords", "guitar", "rnb"], "Guitars"),
+])
+def test_role_tag_listed_first_does_not_override_the_instrument(tags, expected):
+    assert splice_tags_to_instrument(tags)[0] == expected
+
+
+def test_role_tag_alone_still_maps():
+    assert splice_tags_to_instrument(["synth", "pop"])[0] == "Keyboards"
+
+
+@pytest.mark.parametrize("name", [
+    "CPA_TCP_105_melodic_stack_breeze_no_bass_F#m.wav",
+    "CPA_TCP_110_melodic_stack_deep_diver_no_keys_Cm.wav",
+    "AHA_SV_70_melody_loop_try_hard_no_vox_D.wav",
+])
+def test_filename_ignores_a_negated_instrument(name):
+    category, _ = MetadataExtractor().extract_instrument(name)
+    assert category not in ("Bass", "Keyboards", "Vocals")
+
+
+def test_filename_still_reads_an_unnegated_instrument():
+    assert MetadataExtractor().extract_instrument("Funky_Electric_Bass_Loop_01.wav")[0] == "Bass"

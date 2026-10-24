@@ -44,6 +44,39 @@ unchecked one mapped GM programs 104-111 to `('World/Ethnic', 'Other')` —
 a genre used as a category, and a subcategory Apple has never shipped. When a
 vocabulary guard exists, grep for every table that should be behind it.
 
+## A model as the auditor of the mapping tables (Jev)
+
+`jev_mapping.py` asks TypeSafe's Jev (typed choices, not generated text) for a
+category, subcategory and genre, constrained to Apple's vocabulary.
+`scripts/jev-benchmark.py` scores it and the filename rules against Apple's own
+labels (export them on macOS with `scripts/export-apple-loop-labels.py`), and
+lists where it disagrees with the converter on a real `sounds.db`. It needs
+`TYPESAFE_API_KEY` and is **never on the conversion path**: the converter stays
+offline and table-driven.
+
+Measured 2026-10-08 (held-out sample): category accuracy weighted by Apple's
+library, 82% for Jev against 64% for the filename rules. On a real Splice
+library, Jev's high-confidence disagreements were right in 22 of 25 sampled
+and exposed two rule bugs, both FIXED the same day:
+
+- **First tag wins was wrong for role tags.** `synth`, `leads`, `chords`, `arp`,
+  `fx` and `grooves` describe a role, yet map to a category and, listed first,
+  overrode the instrument tag after them: `leads,...,guitar,electric guitar` was
+  written as Keyboards / Synthesizer, a TR-808 snare one-shot too. They are now
+  `SPLICE_ROLE_TAGS`, consulted only when no tag names an instrument. Agreement
+  with Jev went from 80.8% to 89.0% of the library (from 89.7% to 97.4% where Jev
+  was confident); `drums` and `bass` as role tags made it worse.
+- **The filename fallback matched inside a negation.** `..._no_bass_...` became
+  Bass, `no_keys` Piano and `no_vox` Vocals; `NEGATED_RE` now drops a word after
+  no / without / minus / sans.
+
+Still open, and the same shape: the filename fallback takes the LONGEST keyword,
+so `bass_synth` reads as Synthesizer.
+
+Woodwind and Brass are excluded from the options (`jev-questions.json`):
+Apple files 97% of wind loops under Horn/Wind and these tables only write
+Horn/Wind, so offering all three made the model split them literally.
+
 ## Marker density is a property of the audio, not a quota
 
 `TransientDetector` used to force at least one marker per beat, appending an
@@ -195,7 +228,7 @@ this inline in six places and had drifted apart.
 ## Tests
 
 ```bash
-python3 -m pytest            # 233 tests, no macOS required
+python3 -m pytest            # 299 tests, no macOS required
 ```
 
 The suite runs anywhere: the MIDI conversion path is pure Python, so

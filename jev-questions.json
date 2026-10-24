@@ -1,0 +1,52 @@
+{
+  "_comment": "Question wording for jev_mapping.py. The option lists come from apple_loops_vocabulary.py; only their descriptions live here. A null description sends the option name alone.",
+  "model": "jev-1.13.0",
+  "usd_per_million_input_tokens": 0.042,
+  "subjects": {
+    "apple": "the loop named `name`, from the collection `pack`",
+    "splice": "the audio sample with filename `filename`, Splice tags `tags` and sample type `sample_type`"
+  },
+  "category": {
+    "instructions": "Which kind of instrument or sound is {subject}?",
+    "exclude": [
+      "Woodwind",
+      "Brass"
+    ],
+    "_exclude_why": "Apple files 1,409 wind loops under Horn/Wind against 36 Woodwind and 11 Brass, and this toolkit's tables only ever write Horn/Wind. Offered all three, Jev split them literally (2026-10-08 benchmark: Horn/Wind 28% correct).",
+    "criteria": {
+      "Bass": "A bass instrument: electric, acoustic/upright or synth bass, including 808 bass lines",
+      "Drums": "A drum kit, a programmed beat, or a single drum hit (kick, snare, hi-hat, cymbal, tom)",
+      "Guitars": "Guitar or another fretted string instrument (banjo, mandolin, pedal steel)",
+      "Horn/Wind": "Any brass, woodwind or other wind instrument: trumpet, trombone, tuba, French horn, saxophone, flute, clarinet, oboe, harmonica, bagpipe, horn sections",
+      "Keyboards": "Piano, electric piano, organ, synthesizer, clavinet, accordion",
+      "Mallets": "Tuned percussion struck with mallets: marimba, vibraphone, xylophone, glockenspiel, bells, kalimba, steel drum",
+      "Mixed": "A full arrangement or several instruments playing together",
+      "Other Instrument": "A musical instrument that fits none of the other categories",
+      "Percussion": "Hand and auxiliary percussion: congas, bongos, shakers, tambourine, cowbell, claves, scratches",
+      "Sound Effect": "A non-musical sound: ambience, foley, vehicles, animals, impacts, whooshes and transitions",
+      "Strings": "Bowed or plucked orchestral and world strings: violin, viola, cello, double bass, harp, sitar, koto",
+      "Texture/Atmosphere": "A sustained musical pad, drone or evolving atmospheric bed",
+      "Vocals": "A human voice: singing, rapping, spoken word, choir"
+    }
+  },
+  "subcategory": {
+    "instructions": "If {subject} is a {category} sound, which kind of {category} is it?",
+    "criteria": {
+      "Other Instrument": "None of the other kinds listed",
+      "Electronic Beats": "A programmed or electronic beat or loop",
+      "Drum Kit": "An acoustic drum kit playing a groove",
+      "Synthetic Bass": "A synthesizer bass, including 808 bass",
+      "Female": "A female voice",
+      "Male": "A male voice",
+      "Choir": "A choir or group of voices"
+    }
+  },
+  "genre": {
+    "instructions": "Which musical genre best fits {subject}?",
+    "exclude": [],
+    "criteria": {
+      "Other Genre": "No listed genre fits",
+      "Sound_Effects": "A sound effect rather than music"
+    }
+  }
+}

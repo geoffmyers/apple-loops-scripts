@@ -844,10 +844,15 @@ class MetadataExtractor:
             return False
         return None
 
+    NEGATED_RE = re.compile(r'\b(?:no|without|minus|sans)\s+\w+')
+
     def extract_instrument(self, text: str,
                            midi_programs: Optional[Set[int]] = None) -> Tuple[str, str]:
         """Extract instrument category and subcategory from text and MIDI programs."""
         text_lower = text.lower().replace('_', ' ').replace('-', ' ')
+        # A stem export names what it LACKS: "melodic_stack_breeze_no_bass" is
+        # not a bass loop, nor is "..._no_keys" a piano or "..._no_vox" a vocal.
+        text_lower = self.NEGATED_RE.sub(' ', text_lower)
 
         sorted_keywords = sorted(self.INSTRUMENT_MAP.keys(), key=len, reverse=True)
         for keyword in sorted_keywords:
@@ -1305,20 +1310,36 @@ SPLICE_MULTI_INSTRUMENT_TAGS = frozenset({
 })
 
 
+# Splice tags that name a sound's ROLE or source rather than its instrument.
+# Splice does NOT order tags most-specific-first: "leads,hip hop,rnb,guitar,
+# electric guitar" and "synth,bass" and a TR-808 snare tagged "synth,drums,
+# snares" all came out Keyboards / Synthesizer because the role tag happened
+# to be listed first. These are consulted only when no other tag names an
+# instrument. Measured 2026-10-08 against a second opinion (TypeSafe Jev,
+# scripts/jev-benchmark.py) on a real 1,857-sample library: agreement with its
+# confident answers rose from 89.7% to 97.4%, 101 samples moving to its answer
+# and 3 away. Real instruments (drums, bass) made it worse and are not here.
+SPLICE_ROLE_TAGS = frozenset({"synth", "leads", "chords", "arp", "fx", "grooves"})
+
+
 def splice_tags_to_instrument(tags: List[str]) -> Tuple[str, str]:
     """Map a Splice tag list onto an Apple (category, subcategory) pair.
 
-    Splice orders tags most-specific-first, so the first tag that maps wins.
-    A named instrument always beats "this is a full arrangement", which is
-    only consulted once every tag has failed to name one.
+    The first tag that names an instrument wins; a role tag (`SPLICE_ROLE_TAGS`:
+    synth, leads, chords...) only when no tag does. A named instrument always
+    beats "this is a full arrangement", which is only consulted once every tag
+    has failed to name one.
     """
-    for tag in tags:
-        mapped = SPLICE_TAG_TO_INSTRUMENT.get(tag)
-        if mapped:
-            category, subcategory = mapped
-            if subcategory not in APPLE_CATEGORY_SUBCATEGORIES.get(category, ()):
-                subcategory = APPLE_FALLBACK_SUBCATEGORY
-            return category, subcategory
+    for role_pass in (False, True):
+        for tag in tags:
+            if (tag in SPLICE_ROLE_TAGS) != role_pass:
+                continue
+            mapped = SPLICE_TAG_TO_INSTRUMENT.get(tag)
+            if mapped:
+                category, subcategory = mapped
+                if subcategory not in APPLE_CATEGORY_SUBCATEGORIES.get(category, ()):
+                    subcategory = APPLE_FALLBACK_SUBCATEGORY
+                return category, subcategory
 
     if any(tag in SPLICE_MULTI_INSTRUMENT_TAGS for tag in tags):
         return "Mixed", APPLE_FALLBACK_SUBCATEGORY
